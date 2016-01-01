@@ -1,5 +1,4 @@
 # spring-boot-starter-mybatis
-Spring Boot MyBatis Starter
 
 This is unofficial Spring Boot Starter for MyBatis
 
@@ -77,9 +76,9 @@ public interface PersonRepository extends MyBatisRepository<Person, Long> {
 ## Mapper XML
 
 In order to define queries in XML mapper file you have to follow the convention defined for query ID.
-All **find** methods should have statement definitions ids starting with **find**
-All **delete** methods should have statement definitions ids starting with **delete**
-All **save** methods should have statement definitions ids starting with **save** for persisting a new entity and with **update** for modification of already existing entity
+* All **find** methods should have statement definition id starting with **find**
+* All **delete** methods should have statement definition id starting with **delete**
+* All **save** methods should have statement definition id starting with **save** for persisting a new entity and with **update** for modification of already existing entity
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
