@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.create</groupId>
+  <artifactId>spring-boot-starter-mybatis</artifactId>
+  <versioning>
+    <versions>
+      <version>0.0.1-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20160101102642</lastUpdated>
+  </versioning>
+</metadata>
