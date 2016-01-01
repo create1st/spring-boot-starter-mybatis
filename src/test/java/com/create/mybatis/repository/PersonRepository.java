@@ -10,6 +10,9 @@ import java.util.List;
  */
 public interface PersonRepository extends MyBatisRepository<Person, Long> {
 
+    /**
+     * Example of usage XML based mappings.
+     */
     List<Person> findByFirstName(final String firstName);
 
     /**
