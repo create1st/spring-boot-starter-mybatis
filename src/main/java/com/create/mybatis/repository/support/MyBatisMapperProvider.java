@@ -42,4 +42,8 @@ public class MyBatisMapperProvider {
         }
         return mapper;
     }
+
+    public SqlSessionTemplate getSqlSessionTemplate() {
+        return sqlSessionTemplate;
+    }
 }

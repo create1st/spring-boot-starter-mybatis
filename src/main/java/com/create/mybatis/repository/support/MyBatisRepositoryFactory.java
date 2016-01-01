@@ -3,11 +3,8 @@ package com.create.mybatis.repository.support;
 import com.create.mybatis.repository.MyBatisRepository;
 import com.create.mybatis.repository.query.MyBatisEntityInformation;
 import com.create.mybatis.repository.query.MyBatisQueryLookupStrategy;
-import org.apache.ibatis.binding.BindingException;
-import org.apache.ibatis.mapping.ResultMap;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.data.mapping.model.MappingException;
-import org.springframework.data.repository.core.EntityInformation;
 import org.springframework.data.repository.core.RepositoryInformation;
 import org.springframework.data.repository.core.RepositoryMetadata;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
@@ -22,18 +19,16 @@ import java.io.Serializable;
  * Factory to create {@link MyBatisRepository} instances.
  */
 public class MyBatisRepositoryFactory extends RepositoryFactorySupport {
-    private final SqlSessionTemplate sqlSessionTemplate;
     private final MyBatisMapperProvider provider;
 
     /**
      * Creates a new {@link MyBatisRepositoryFactory} with the given {@link SqlSessionTemplate}.
      *
-     * @param sqlSessionTemplate must not be {@literal null}.
+     * @param provider must not be {@literal null}.
      */
-    public MyBatisRepositoryFactory(final SqlSessionTemplate sqlSessionTemplate) {
-        Assert.notNull(sqlSessionTemplate);
-        this.sqlSessionTemplate = sqlSessionTemplate;
-        this.provider = new MyBatisMapperProvider(sqlSessionTemplate);
+    public MyBatisRepositoryFactory(final MyBatisMapperProvider provider) {
+        Assert.notNull(provider);
+        this.provider = provider;
     }
 
     @Override
@@ -51,7 +46,7 @@ public class MyBatisRepositoryFactory extends RepositoryFactorySupport {
     @SuppressWarnings("unchecked")
     protected Object getTargetRepository(final RepositoryInformation metadata) {
         final MyBatisEntityInformation<?, Serializable> entityInformation = getEntityInformation(metadata.getDomainType());
-        return new SimpleMyBatisRepository(entityInformation, sqlSessionTemplate);
+        return new SimpleMyBatisRepository(entityInformation, provider.getSqlSessionTemplate());
     }
 
     @Override
@@ -61,6 +56,6 @@ public class MyBatisRepositoryFactory extends RepositoryFactorySupport {
 
     @Override
     protected QueryLookupStrategy getQueryLookupStrategy(final Key key, final EvaluationContextProvider evaluationContextProvider) {
-        return new MyBatisQueryLookupStrategy(sqlSessionTemplate, key);
+        return new MyBatisQueryLookupStrategy(provider, key);
     }
 }

@@ -20,11 +20,19 @@
         </selectKey>
     </insert>
 
+    <update id="update">
+        UPDATE person
+        SET
+        firstName = #{entity.firstName},
+        lastName = #{entity.lastName}
+        WHERE id = #{entity.id}
+    </update>
+
     <select id="find" resultMap="personResultMap">
         SELECT id, firstName, lastName
         FROM person
-        <if test="id">
-            WHERE id = #{id.value}
+        <if test="id != null">
+            WHERE id = #{id}
         </if>
     </select>
 
@@ -37,8 +45,8 @@
     <delete id="delete">
         DELETE
         FROM person
-        <if test="id">
-            WHERE id = #{id.value}
+        <if test="id != null">
+            WHERE id = #{id}
         </if>
     </delete>
 

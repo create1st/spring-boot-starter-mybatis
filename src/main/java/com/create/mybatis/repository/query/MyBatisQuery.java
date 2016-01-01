@@ -14,11 +14,11 @@ public class MyBatisQuery implements RepositoryQuery {
     private final MyBatisQueryMethod queryMethod;
     private final MyBatisMapperProvider provider;
 
-    public MyBatisQuery(final MyBatisQueryMethod queryMethod, final SqlSessionTemplate sqlSessionTemplate) {
+    public MyBatisQuery(final MyBatisQueryMethod queryMethod, final MyBatisMapperProvider provider) {
         Assert.notNull(queryMethod);
-        Assert.notNull(sqlSessionTemplate);
+        Assert.notNull(provider);
         this.queryMethod = queryMethod;
-        this.provider = new MyBatisMapperProvider(sqlSessionTemplate);
+        this.provider = provider;
     }
 
     @Override

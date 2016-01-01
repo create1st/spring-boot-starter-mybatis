@@ -2,11 +2,12 @@ package com.create.mybatis.repository;
 
 import com.create.mybatis.application.configuration.MyBatisConfiguration;
 import com.create.mybatis.model.Person;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,24 +22,51 @@ import static org.hamcrest.collection.IsEmptyCollection.empty;
 @SpringApplicationConfiguration(classes = {MyBatisConfiguration.class})
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
+@SqlGroup({
+        @Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:beforeTestRun.sql"),
+        @Sql(executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD, scripts = "classpath:afterTestRun.sql")
+})
 public class PersonRepositoryTest {
     @Autowired
     private PersonRepository personRepository;
 
-    @Before
-    public void setup() {
-        System.out.println(personRepository.save(new Person("Jan", "Kowalski")));
-        System.out.println(personRepository.save(new Person("Karol", "Nowak")));
-        System.out.println(personRepository.save(new Person("Renata", "Nowak")));
+    @Test
+    public void testCount() {
+        // given
+        // when
+        final long count = personRepository.count();
+        // then
+        assertThat(count, is(3L));
+    }
+
+    @Test
+    public void testSaveNewPerson() {
+        // given
+        // when
+        final Person person = personRepository.save(new Person("Leon", "Kowalski"));
+        // then
+        assertThat(person, notNullValue());
+        assertThat(person.getId(), notNullValue());
+        assertThat(personRepository.count(), is(4L));
+    }
+
+    @Test
+    public void testSaveExistingPerson() {
+        // given
+        // when
+        final Person person = personRepository.save(new Person(0L, "Jan", "Nowak"));
+        // then
+        assertThat(person, notNullValue());
+        assertThat(person.getId(), notNullValue());
+        assertThat(personRepository.count(), is(3L));
+        assertThat(personRepository.findOne(person.getId()).getLastName(), is("Nowak"));
     }
 
     @Test
     public void testFindOnePerson() {
         // given
-        final List<Person> persons = personRepository.findAll();
-
         // when
-        final Person person = personRepository.findOne(persons.get(0).getId());
+        final Person person = personRepository.findOne(0L);
         // then
         assertThat(person, notNullValue());
     }
@@ -76,11 +104,10 @@ public class PersonRepositoryTest {
     @Test
     public void testDeleteOnePerson() {
         // given
-        final List<Person> persons = personRepository.findAll();
         // when
-        personRepository.delete(persons.get(0).getId());
+        personRepository.delete(0L);
         // then
-        assertThat(personRepository.findOne(persons.get(0).getId()), nullValue());
+        assertThat(personRepository.findOne(0L), nullValue());
     }
 
     @Test
