@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.create.mybatis.repository.PersonRepository">
+
+    <resultMap id="personResultMap" type="com.create.mybatis.model.Person">
+        <id property="id" column="id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+    </resultMap>
+
+    <insert id="save" useGeneratedKeys="true"  keyProperty="id">
+        INSERT INTO person(firstName, lastName)
+        VALUES(#{entity.firstName}, #{entity.lastName})
+        <selectKey resultType="long" order="AFTER" keyProperty="returnedId">
+            SELECT TOP 1 id as returnedId
+            FROM person
+            ORDER BY returnedId DESC
+        </selectKey>
+    </insert>
+
+    <select id="find" resultMap="personResultMap">
+        SELECT id, firstName, lastName
+        FROM person
+        <if test="id">
+            WHERE id = #{id.value}
+        </if>
+    </select>
+
+    <select id="findByFirstName" resultMap="personResultMap" parameterType="string">
+        SELECT id, firstName, lastName
+        FROM person
+        WHERE firstName = #{firstName}
+    </select>
+
+    <delete id="delete">
+        DELETE
+        FROM person
+        <if test="id">
+            WHERE id = #{id.value}
+        </if>
+    </delete>
+
+</mapper>
