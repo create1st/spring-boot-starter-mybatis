@@ -4,8 +4,9 @@
   <artifactId>spring-boot-starter-mybatis</artifactId>
   <versioning>
     <versions>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>1.3.1-SNAPSHOT</version>
+      <version>1.3.0-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20160101102642</lastUpdated>
+    <lastUpdated>20160101112952</lastUpdated>
   </versioning>
 </metadata>

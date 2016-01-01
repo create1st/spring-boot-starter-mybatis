@@ -2,23 +2,23 @@
 <metadata modelVersion="1.1.0">
   <groupId>com.create</groupId>
   <artifactId>spring-boot-starter-mybatis</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.3.1-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <timestamp>20160101.102642</timestamp>
+      <timestamp>20160101.112905</timestamp>
       <buildNumber>1</buildNumber>
     </snapshot>
-    <lastUpdated>20160101102642</lastUpdated>
+    <lastUpdated>20160101112905</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>0.0.1-20160101.102642-1</value>
-        <updated>20160101102642</updated>
+        <value>1.3.1-20160101.112905-1</value>
+        <updated>20160101112905</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>0.0.1-20160101.102642-1</value>
-        <updated>20160101102642</updated>
+        <value>1.3.1-20160101.112905-1</value>
+        <updated>20160101112905</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>
