@@ -18,7 +18,6 @@
 package com.create.mybatis.repository.query;
 
 import com.create.mybatis.repository.support.MyBatisMapperProvider;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.data.repository.query.QueryMethod;
 import org.springframework.data.repository.query.RepositoryQuery;
 import org.springframework.util.Assert;
@@ -29,19 +28,25 @@ import org.springframework.util.ReflectionUtils;
  */
 public class MyBatisQuery implements RepositoryQuery {
     private final MyBatisQueryMethod queryMethod;
-    private final MyBatisMapperProvider provider;
+    private final MyBatisMapperProvider mapperProvider;
 
-    public MyBatisQuery(final MyBatisQueryMethod queryMethod, final MyBatisMapperProvider provider) {
+    /**
+     * Creates a new {@link MyBatisQuery} from the given domain class.
+     *
+     * @param queryMethod must not be {@literal null}.
+     * @param mapperProvider has to be {@literal null} of {@literal Key.USE_DECLARED_QUERY}.
+     */
+    public MyBatisQuery(final MyBatisQueryMethod queryMethod, final MyBatisMapperProvider mapperProvider) {
         Assert.notNull(queryMethod);
-        Assert.notNull(provider);
+        Assert.notNull(mapperProvider);
         this.queryMethod = queryMethod;
-        this.provider = provider;
+        this.mapperProvider = mapperProvider;
     }
 
     @Override
     public Object execute(final Object[] parameters) {
         final Class<?> domainClass = queryMethod.getEntityInformation().getJavaType();
-        final Object mapper = provider.getMapper(domainClass);
+        final Object mapper = mapperProvider.getMapper(domainClass);
         return ReflectionUtils.invokeMethod(queryMethod.getMethod(), mapper, parameters);
     }
 

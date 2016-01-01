@@ -35,13 +35,13 @@ public class MyBatisQueryLookupStrategy implements QueryLookupStrategy {
     /**
      * Creates a new {@link MyBatisQueryLookupStrategy} from the given domain class.
      *
-     * @param provider must not be {@literal null}.
+     * @param mapperProvider must not be {@literal null}.
      * @param key has to be {@literal null} of {@literal Key.USE_DECLARED_QUERY}.
      */
-    public MyBatisQueryLookupStrategy(final MyBatisMapperProvider provider, final Key key) {
+    public MyBatisQueryLookupStrategy(final MyBatisMapperProvider mapperProvider, final Key key) {
         Assert.isTrue(key == null || Key.USE_DECLARED_QUERY.equals(key), "MyBatis query strategy is supported only for declared statements");
-        Assert.notNull(provider);
-        this.provider = provider;
+        Assert.notNull(mapperProvider);
+        this.provider = mapperProvider;
     }
 
     @Override
