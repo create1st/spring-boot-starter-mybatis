@@ -4,7 +4,7 @@
 
     <groupId>com.create</groupId>
     <artifactId>spring-boot-starter-mybatis</artifactId>
-    <version>1.3.0.RELEASE</version>
+    <version>1.3.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <parent>
@@ -81,9 +81,9 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:git:https://github.com/${github.user}/${github.repo}.git</connection>
-        <developerConnection>scm:git:git@github.com:${github.user}/${github.repo}.git</developerConnection>
-        <url>https://github.com/${github.user}/${github.repo}</url>
+        <connection>scm:git:https://github.com/create1st/spring-boot-starter-mybatis.git</connection>
+        <developerConnection>scm:git:git@github.com:create1st/spring-boot-starter-mybatis.git</developerConnection>
+        <url>https://github.com/create1st/spring-boot-starter-mybatis</url>
         <tag>HEAD</tag>
     </scm>
 
